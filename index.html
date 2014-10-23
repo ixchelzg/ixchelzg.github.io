@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="bootstrap.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	function sortNumber(a,b) {
+		return a - b;
+	}
+
+	function getMonedas() {
+		var monedas = document.getElementsByClassName('moneda');
+		var cantidad_ = 0;
+		var valores = new Array();
+		var cantidad = new Array();
+		var values = new Array();
+		for(var i=0; i<monedas.length; i++)
+		{
+			cantidad_ = monedas[i].getElementsByTagName('input')[0].value;
+			cantidad[i] = monedas[i].getElementsByTagName('input')[0].value;
+			values[i] = monedas[i].getElementsByTagName('input')[1].value;
+			var m=valores.length;
+			for(var j=0; j<cantidad_; j++)
+			{	
+				valores[m+j] = monedas[i].getElementsByTagName('input')[1].value;
+			}
+		}
+		valores.sort(sortNumber);
+		valores.reverse();
+		return [valores,cantidad,values];
+	}
+
+	function cashier() {
+		var monedas = document.getElementsByClassName('moneda');
+		var vals = getMonedas();
+
+		var values = vals[0];
+		var cantidad = vals[1];
+		var valores = vals[2];
+
+		var change = document.getElementById('dinero').value;
+		var change_ = change;
+
+		var i = 0;
+		var S = new Array();
+		while( change != 0 && change > 0 && i < values.length){
+			k = values[i];
+			check = change-k;
+			if(check >= 0){
+				change = change-k;
+				values.splice(i,1);
+				n = valores.indexOf(k);
+				monedas[n].getElementsByTagName('input')[0].value = monedas[n].getElementsByTagName('input')[0].value-1;
+				S.push(k);
+			}
+			i++;
+		}
+		clase = 'alert alert-success';
+		if( S.lenght == 0 || change > 0 ){
+			S = 'No tengo cambio suficiente para darte :('	
+			clase = 'alert alert-danger';
+		}
+		document.getElementById("el_cambio").innerHTML += "<p class='"+clase+"'>El cambio de : "+ change_ +", fue "+S+"<br></p>";		
+	}
+</script>
+
+<html>
+<body class="container">
+
+	<h1>Cambio del cajero</h1>
+	<div class="form-horizontal" role="form">
+		<div class="moneda form-group">
+			<label class="col-sm-3 control-label">Cantidad / Valor:</label><input type="number" id="cantidad1" /> x $<input type="number" id="denominacion1" />
+		</div>
+		<div class="moneda form-group">
+			<label class="col-sm-3 control-label">Cantidad / Valor:</label><input type="number" id="cantidad2" /> x $<input type="number" id="denominacion2" />
+		</div>
+		<div class="moneda form-group">
+			<label class="col-sm-3 control-label">Cantidad / Valor:</label><input type="number" id="cantidad3" /> x $<input type="number" id="denominacion3" />
+		</div>
+		<div class="moneda form-group">
+			<label class="col-sm-3 control-label">Cantidad / Valor:</label><input type="number" id="cantidad4" /> x $<input type="number" id="denominacion4" />
+		</div>
+		<div class="moneda form-group">
+			<label class="col-sm-3 control-label">Cantidad / Valor:</label><input type="number" id="cantidad5" />x $<input type="number" id="denominacion5" />
+		</div>
+
+		<label class="col-sm-3 control-label">Cantidad que necesitas: </label><input type="number" id="dinero" />
+	
+		<button onclick="cashier()" class="btn btn-default">Dame el cambio</button>
+	</div>
+	<div class="cambio" id="el_cambio"></div>
+</body>
+</html>
+
