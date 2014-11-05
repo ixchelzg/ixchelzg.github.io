@@ -48,22 +48,27 @@
 		var S = new Array();
 		while( change != 0 && change > 0 && i < values.length){
 			k = values[i];
+			console.log('K: '+k);
 			check = change-k;
-			if(check >= 0){
+			console.log('check: '+check);
+			if(check >= 0 || Math.abs(check) < 0.000001){
 				change = change-k;
 				values.splice(i,1);
 				n = valores.indexOf(k);
+				console.log(S);
 				monedas[n].getElementsByTagName('input')[0].value = monedas[n].getElementsByTagName('input')[0].value-1;
 				S.push(k);
 			}
 			i++;
 		}
 		clase = 'alert alert-success';
-		if( S.lenght == 0 || change > 0 ){
+		console.log(S);
+		console.log('final change : '+Math.abs(change));
+		if( S.lenght == 0 || Math.abs(change) > 0.000001 ){
 			S = 'No tengo cambio suficiente para darte :('	
 			clase = 'alert alert-danger';
 		}
-		document.getElementById("el_cambio").innerHTML += "<p class='"+clase+"'>Para el cambio de : "+ change_ +", se usaron "+S.lenght+" monedas: "+S+"<br></p>";		
+		document.getElementById("el_cambio").innerHTML += "<p class='"+clase+"'>Para el cambio de : "+ change_+", se usaron "+S.lenght+" monedas: "+S+"<br></p>";		
 	}
 </script>
 
