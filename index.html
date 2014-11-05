@@ -64,11 +64,12 @@
 		clase = 'alert alert-success';
 		console.log(S);
 		console.log('final change : '+Math.abs(change));
-		if( S.lenght == 0 || Math.abs(change) > 0.000001 ){
+		console.log('S.lenght : '+S.length);
+		if( S.length == 0 || Math.abs(change) > 0.000001 ){
 			S = 'No tengo cambio suficiente para darte :('	
 			clase = 'alert alert-danger';
 		}
-		document.getElementById("el_cambio").innerHTML += "<p class='"+clase+"'>Para el cambio de : "+ change_+", se usaron "+S.lenght+" monedas: "+S+"<br></p>";		
+		document.getElementById("el_cambio").innerHTML += "<p class='"+clase+"'>Para el cambio de : "+ change_+", se usaron "+S.length+" monedas: "+S+"<br></p>";		
 	}
 </script>
 
