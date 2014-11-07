@@ -7,6 +7,28 @@
 <script src="bootstrap.min.js"></script>
 
 <script type="text/javascript">
+window.onload = function(){
+     (function() {
+        var greedy = function(amount) {
+          var change = [], total = 0;
+          [50, 20, 10].forEach(function(coin) {
+            while (total + coin <= amount) {
+              change.push(coin);
+              total += coin;
+            }
+          });
+          return change;
+        }; 
+	
+	document.getElementById('greedy').onsubmit = function(e) {
+          e.preventDefault();
+	 document.getElementById('greedy-change').className = "alert alert-success";
+         document.getElementById('greedy-change').innerHTML = greedy(parseInt(document.getElementById('greedy-amount').value, 10)).map(function(coin) { return coin+'&cent;' }).join(' ');
+
+        };
+      })();
+};
+
 	function sortNumber(a,b) {
 		return a - b;
 	}
@@ -71,12 +93,20 @@
 		}
 		document.getElementById("el_cambio").innerHTML += "<p class='"+clase+"'>Para el cambio de : "+ change_+", se usaron "+S.length+" monedas: "+S+"<br></p>";		
 	}
+
+
 </script>
 
 <html>
 <body class="container">
 
 	<h1>Cambio del cajero</h1>
+	<form id="greedy">
+	      <strong>Greedy con centavos {50, 20, 10}:</strong>
+	      <input type="text" id="greedy-amount" value="40" size="2">&cent;
+	      <input type="submit" value="Dame el cambio" class="btn btn-default">
+	      <span id="greedy-change"  ></span>
+   	</form><br><br>
 	<div class="form-horizontal" role="form">
 		<div class="moneda form-group">
 			<label class="col-sm-3 control-label">Cantidad / Valor:</label><input type="number" id="cantidad1" /> x $<input type="number" id="denominacion1" value=".10" readonly/>
